@@ -1,0 +1,87 @@
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #e6f7ff;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #d9d9d9;
+  gap: 0.5rem
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+
+  img {
+    display: block;
+  }
+
+  .placesLink {
+    margin-left: 4rem;
+    font-weight: 500;
+    font-size: 1rem;
+    color: #1677ff;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+}
+
+.userBlock {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  color: #1890ff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #40a9ff;
+  }
+}
+
+.avatar {
+  border-radius: 50%;
+  border: 1px solid #d9d9d9;
+  background-color: #fff;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.createBtn {
+  background-color: #1890ff;
+  color: white;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #40a9ff;
+  }
+}
+
+.loginLink {
+  color: #1890ff;
+  text-decoration: none;
+  font-weight: 500;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

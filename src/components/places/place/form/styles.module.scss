@@ -1,0 +1,374 @@
+.placeForm {
+  background: #ffffff;
+  border-radius: 6px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  box-sizing: border-box;
+  max-width: 100%;
+  margin: 24px auto;
+
+  .formItem {
+    margin-bottom: 20px;
+
+    display: flex;
+    flex-direction: column;
+
+    .formLabel {
+      margin-bottom: 6px;
+      font-size: 15px;
+      font-weight: 500;
+      color: #000000d9;
+    }
+
+    .formControl {
+      width: 100%;
+      padding: 10px 14px;
+      font-size: 14px;
+      line-height: 1.5;
+      color: rgba(0, 0, 0, 0.85);
+      background: #fafafa;
+      border: 1px solid #d9d9d9;
+      border-radius: 6px;
+      transition: border-color .2s, box-shadow .2s;
+
+      &:focus {
+        border-color: #1890ff;
+        box-shadow: 0 0 0 3px rgba(24, 144, 255, 0.2);
+        outline: none;
+      }
+    }
+
+    textarea.formControl {
+      min-height: 140px;
+      resize: none;
+    }
+
+    .error {
+      margin-top: 6px;
+      font-size: 12px;
+      color: #ff4d4f;
+    }
+  }
+
+  .formItem--file {
+    .fileWrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      border: 1px solid #d9d9d9;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #fafafa;
+      transition: border-color .2s;
+
+      &:hover {
+        border-color: #1890ff;
+      }
+
+      input[type="file"] {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+      }
+
+      .uploadBtn {
+        flex: none;
+        padding: 8px 16px;
+        background: #1890ff;
+        color: #fff;
+        font-size: 14px;
+        border-right: 1px solid #1570d2;
+        cursor: pointer;
+        transition: background .2s;
+
+        &:hover {
+          background: #1570d2;
+        }
+      }
+
+      .fileName {
+        flex: 1;
+        padding: 8px 12px;
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.65);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    .error {
+      margin-top: 6px;
+    }
+  }
+
+  .formRow {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .tagInputRow {
+    display: flex;
+  }
+
+  .tagOptions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+
+  .tagOption {
+    padding: 6px 14px;
+    font-size: 14px;
+    border: 1px solid #d9d9d9;
+    border-radius: 20px;
+    background: #f5f5f5;
+    color: #333;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.2s ease;
+    user-select: none;
+
+    &:hover {
+      border-color: #40a9ff;
+      background: #e6f7ff;
+    }
+
+    &.selected {
+      background: #bae7ff;
+      border-color: #1890ff;
+      color: #1890ff;
+      font-weight: 500;
+    }
+
+    .close {
+      margin-left: 6px;
+      font-size: 14px;
+      line-height: 1;
+      color: inherit;
+    }
+  }
+
+  .imagePreview {
+    margin-top: 12px;
+    max-width: 100%;
+    border-radius: 6px;
+  }
+
+  .formActions {
+    margin-top: 24px;
+    display: flex;
+    justify-content: flex-end;
+
+    .submitButton {
+      padding: 12px 24px;
+      font-size: 15px;
+      font-weight: 500;
+      color: #fff;
+      background: #1890ff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background .2s;
+
+      &:hover {
+        background: #1570d2;
+      }
+    }
+  }
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalContent {
+  background: #fff;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 800px;
+  padding: 16px;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.closeButton {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 9999;
+  background: #fff;
+  border: none;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #999;
+  padding: 4px 10px;
+  border-radius: 50%;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #f5f5f5;
+    color: #000;
+  }
+}
+
+.mapButton {
+  margin: 12px 0 20px;
+  background-color: #1677ff;
+  color: #fff;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #0958d9;
+  }
+}
+
+.inputWithSpinner {
+  position: relative;
+
+  input {
+    padding-right: 30px;
+  }
+}
+
+.spinner {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #1677ff;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  transform: translateY(-50%);
+}
+
+@keyframes spin {
+  to {
+    transform: translateY(-50%) rotate(360deg);
+  }
+}
+
+.confirmModal {
+  font-size: 15px;
+  color: #333;
+  line-height: 1.6;
+}
+
+.modalIntro {
+  margin-bottom: 12px;
+  code {
+    background-color: #f0f0f0;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 90%;
+  }
+}
+
+.modalFields {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 16px;
+
+  span {
+    color: #363535;
+    font-weight: 500;
+    margin-right: 4px;
+  }
+
+  strong {
+    color: #111;
+  }
+}
+
+.modalQuestion {
+  margin-bottom: 16px;
+}
+
+.confirmModalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+
+  button {
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.2s ease;
+  }
+
+  .cancelButton {
+    background: #f5f5f5;
+    color: #333;
+
+    &:hover {
+      background: #e4e4e4;
+    }
+  }
+
+  .confirmButton {
+    background: #1677ff;
+    color: white;
+
+    &:hover {
+      background: #0958d9;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .placeForm {
+    padding: 28px;
+    max-width: 620px;
+
+    .formRow {
+      flex-direction: row;
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .placeForm {
+    padding: 36px;
+    max-width: 840px;
+
+    .formRow {
+      flex-direction: row;
+    }
+
+    .formActions {
+      justify-content: flex-end;
+      margin-top: 32px;
+    }
+  }
+}

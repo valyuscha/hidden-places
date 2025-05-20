@@ -1,0 +1,163 @@
+$primary-color: #1890ff;
+$primary-color-hover: #40a9ff;
+$tag-bg: #e6f7ff;
+$tag-color: #1890ff;
+
+.wrapper {
+  padding: 1rem;
+
+  h1 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    color: #1f1f1f;
+  }
+}
+
+.searchInput {
+  padding: 0.5rem;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  width: 100%;
+  margin-bottom: 0.75rem;
+
+  @media (min-width: 600px) {
+    width: 70%;
+  }
+
+  @media (min-width: 1024px) {
+    width: 50%;
+  }
+}
+
+.tagsFilter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+
+  .tagCheckbox {
+    font-size: 0.875rem;
+    color: #595959;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+
+    input {
+      accent-color: $primary-color;
+    }
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+
+  @media (min-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #f0f0f0;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  padding: 1rem;
+  transition: box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+
+  h2 {
+    font-size: 1rem;
+    margin: 0;
+    color: #262626;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.875rem;
+    color: #595959;
+  }
+
+  .tags {
+    margin-top: auto;
+
+    span {
+      display: inline-block;
+      background: $tag-bg;
+      color: $tag-color;
+      font-size: 0.75rem;
+      padding: 4px 8px;
+      border-radius: 4px;
+      margin: 4px 4px 0 0;
+    }
+  }
+
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: auto;
+
+    .viewBtn {
+      padding: 0.5rem 1rem;
+      background-color: #52c41a;
+      color: #fff;
+      font-size: 0.875rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+
+      &:hover {
+        background-color: #73d13d;
+      }
+    }
+  }
+}
+
+.loadMore {
+  margin: 1.5rem auto;
+  display: block;
+  background: $primary-color;
+  color: #fff;
+  padding: 0.625rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+
+  &:hover {
+    background: $primary-color-hover;
+  }
+}
+
+.loading {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.noResults {
+  text-align: center;
+  font-size: 1rem;
+  color: #999;
+  padding: 2rem 0;
+}
