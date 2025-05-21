@@ -17,7 +17,7 @@ const LocationMarker = ({ onSelect }: { onSelect: (lat: number, lng: number) => 
   return null;
 };
 
-export default function MapInner({ onSelectLocation }: any) {
+export default function MapInner({ onSelectLocation }: { onSelectLocation: (lat: number, lng: number) => void }) {
   const [ position, setPosition ] = useState<[number, number] | null>(null);
 
   const handleSelect = (lat: number, lng: number) => {

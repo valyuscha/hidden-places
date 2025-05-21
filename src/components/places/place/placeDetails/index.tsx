@@ -7,8 +7,9 @@ import { useRouter } from 'next/navigation';
 import { useCurrentUser } from '@/hooks/useUser';
 import { useRemovePlace } from '@/hooks/usePlace';
 import { DeleteConfirmModal } from '@/components/deleteConfirmModal';
+import * as L from 'leaflet';
 
-import { PlaceDetailsProps } from './types';
+import { PlaceDetailsProps, IconDefaultWithPrivateMethod } from './types';
 import s from './styles.module.scss';
 
 const MapContainer = dynamic(() => import('react-leaflet').then(mod => mod.MapContainer), { ssr: false });
@@ -20,13 +21,13 @@ export const PlaceDetails = ({ place }: PlaceDetailsProps) => {
   const router = useRouter();
   const { currentUser } = useCurrentUser();
   const { removePlace } = useRemovePlace();
-  const [ L, setLeaflet ] = useState<any>(null);
+  const [ , setLeaflet ] = useState<typeof L | null>(null);
   const [ showDeleteModal, setShowDeleteModal ] = useState(false);
   const [ isDeleting, setIsDeleting ] = useState(false);
 
   useEffect(() => {
     import('leaflet').then((leaflet) => {
-      delete (leaflet.Icon.Default.prototype as any)._getIconUrl;
+      delete (leaflet.Icon.Default.prototype as IconDefaultWithPrivateMethod)._getIconUrl;
       leaflet.Icon.Default.mergeOptions({
         iconUrl: '/leaflet/marker-icon.png',
         iconRetinaUrl: '/leaflet/marker-icon-2x.png',

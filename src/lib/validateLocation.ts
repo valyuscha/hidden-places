@@ -57,6 +57,7 @@ export const validateLocation = async (
 
     return { valid: true };
   } catch (err) {
+    console.error(err);
     return { valid: false, error: 'No address found for these coordinates' };
   }
 };

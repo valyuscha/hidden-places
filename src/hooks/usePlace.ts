@@ -63,7 +63,7 @@ export const useCreatePlace = () => {
     update(cache, {data: {createPlace}}) {
       cache.modify({
         fields: {
-          places(existingPlaceRefs = [], {readField}) {
+          places(existingPlaceRefs = []) {
               const newPlaceRef = cache.writeFragment({
                 data: createPlace,
                   fragment: gql`

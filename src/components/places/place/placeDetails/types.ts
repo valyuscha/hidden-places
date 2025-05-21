@@ -1,3 +1,5 @@
+import * as L from 'leaflet';
+
 interface Place {
   id: number;
   createdBy: {
@@ -14,4 +16,8 @@ interface Place {
 
 export interface PlaceDetailsProps {
   place: Place;
+}
+
+export interface IconDefaultWithPrivateMethod extends L.Icon.Default {
+  _getIconUrl?: () => string;
 }
