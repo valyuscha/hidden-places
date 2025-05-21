@@ -43,7 +43,7 @@ export interface FormActionsProps {
 export interface MapModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSelectLocation: (lat: number, lng: number, country: string, city: string) => void;
+  onSelectLocation: (lat: number, lng: number) => void;
 }
 
 export interface CorrectionConfirmModalProps {
