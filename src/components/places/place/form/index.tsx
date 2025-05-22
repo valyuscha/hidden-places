@@ -73,13 +73,8 @@ export const PlaceForm = ({ initialValues }: PlaceFormProps) => {
       });
       router.push(`/places/${updated.id}`);
     } else {
-      try {
-        const created = await createPlace(payload);
-        router.push(`/places/${created.id}`);
-        console.log('[PLACE CREATED SUCCESSFULY]');
-      } catch (err) {
-        console.error('[PLACE ERROR]: ', err);
-      }
+      const created = await createPlace(payload);
+      router.push(`/places/${created.id}`);
     }
   }
 
