@@ -67,8 +67,6 @@ export const Places = () => {
 
   return (
     <div className={styles.wrapper}>
-      <p>NEXT_PUBLIC_SERVER_ENDPOINT: {process.env.NEXT_PUBLIC_SERVER_ENDPOINT}</p>
-      <p>NEXT_PUBLIC_GRAPHQL_ENDPOINT: {process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT}</p>
       <h1>Hidden Places of Europe</h1>
       <input
         type="text"
