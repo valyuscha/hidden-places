@@ -12,6 +12,7 @@
     "@apollo/client": "^3.13.8",
     "@hookform/resolvers": "^5.0.1",
     "graphql": "^16.11.0",
+    "heic2any": "^0.0.4",
     "leaflet": "^1.9.4",
     "next": "15.3.1",
     "rc-util": "^5.44.4",

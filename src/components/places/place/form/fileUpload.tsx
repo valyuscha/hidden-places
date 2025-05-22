@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, ChangeEvent } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
 import { PlaceFormValues } from './types';
 import s from './styles.module.scss';
 
 export const FileUpload = () => {
-  const { control, setValue } = useFormContext<PlaceFormValues>();
+  const { control, setValue, setError, clearErrors } = useFormContext<PlaceFormValues>();
 
   const {
     field: { value: file, onChange: setFile },
@@ -29,6 +29,25 @@ export const FileUpload = () => {
     }
   }, [file, setValue]);
 
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0];
+    if (!selectedFile) return;
+
+    const MAX_SIZE_MB = 5;
+    const maxSize = MAX_SIZE_MB * 1024 * 1024;
+
+    if (selectedFile.size > maxSize) {
+      setError('imageUrl', {
+        type: 'manual',
+        message: `File is too large. Maximum size is ${MAX_SIZE_MB}MB.`,
+      });
+      setFile(null);
+    } else {
+      clearErrors('imageUrl');
+      setFile(selectedFile);
+    }
+  };
+
   return (
     <div className={`${s.formItem} ${s['formItem--file']}`}>
       <label className={s.formLabel}>Image</label>
@@ -42,7 +61,7 @@ export const FileUpload = () => {
         <input
           type="file"
           accept="image/*"
-          onChange={e => setFile(e.target.files?.[0] ?? null)}
+          onChange={handleFileChange}
         />
       </div>
       {imageUrlError && <p className={s.error}>{imageUrlError.message}</p>}
@@ -52,3 +71,4 @@ export const FileUpload = () => {
     </div>
   );
 };
+
