@@ -15,7 +15,7 @@ export const uploadImage = async (file: File): Promise<{ imageUrl: string; publi
         type: 'image/jpeg',
       });
     } catch (error) {
-      throw new Error('HEIC conversion failed');
+      throw new Error(`HEIC conversion failed: ${error}`);
     }
   }
 
