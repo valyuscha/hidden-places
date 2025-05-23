@@ -1,10 +1,10 @@
-import heic2any from 'heic2any';
-
 export const uploadImage = async (file: File): Promise<{ imageUrl: string; publicId: string }> => {
   let finalFile = file;
 
   if (file.type === 'image/heic' || file.type === 'image/heif') {
     try {
+      const heic2any = (await import('heic2any')).default;
+
       const convertedBlob = await heic2any({
         blob: file,
         toType: 'image/jpeg',
