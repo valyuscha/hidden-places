@@ -11,12 +11,20 @@ export const uploadImage = async (file: File): Promise<{ imageUrl: string; publi
         quality: 0.9,
       }) as BlobPart;
 
-      finalFile = new File([convertedBlob], file.name.replace(/\.(heic|heif)$/i, '.jpg'), {
-        type: 'image/jpeg',
-      });
+      finalFile = new File(
+        [convertedBlob instanceof Blob ? convertedBlob : new Blob([convertedBlob])],
+        file.name.replace(/\.(heic|heif)$/i, '.jpg'),
+        {
+          type: 'image/jpeg',
+          lastModified: new Date().getTime()
+        }
+      );
     } catch (error) {
+      console.error('HEIC conversion details:', error);
       throw new Error(`HEIC conversion failed: ${error}`);
     }
+  } else {
+    console.log(`Using file as-is, type: ${file.type}`);
   }
 
   const formData = new FormData();
@@ -25,6 +33,8 @@ export const uploadImage = async (file: File): Promise<{ imageUrl: string; publi
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_ENDPOINT}/upload`, {
     method: 'POST',
     body: formData,
+    headers: {
+    },
   });
 
   if (!res.ok) {

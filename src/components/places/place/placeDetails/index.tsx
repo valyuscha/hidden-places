@@ -48,8 +48,14 @@ export const PlaceDetails = ({ place }: PlaceDetailsProps) => {
   const confirmDelete = async () => {
     setIsDeleting(true);
     try {
-      await removePlace(+place.id);
-      router.push('/places');
+      const result = await removePlace(
+        +place.id,
+        isOwner && currentUser ? +currentUser.id : undefined
+      );
+
+      if (result) {
+        router.replace('/places');
+      }
     } catch (err) {
       console.error('Failed to delete place:', err);
     } finally {

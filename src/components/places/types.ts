@@ -6,4 +6,5 @@ export interface Place {
   city: string;
   imageUrl: string;
   tags: string[];
+  createdAt?: string;
 }

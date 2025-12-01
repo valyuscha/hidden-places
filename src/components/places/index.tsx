@@ -1,7 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { NetworkStatus } from '@apollo/client';
 import { usePlaces } from '@/hooks/usePlace';
 
 import { Place } from './types';
@@ -10,6 +12,7 @@ import styles from './places.module.scss';
 const LIMIT = 9;
 
 export const Places = () => {
+  const pathname = usePathname();
   const [ search, setSearch ] = useState<string>('');
   const [ selectedTags, setSelectedTags ] = useState<string[]>([]);
   const [ offset, setOffset ] = useState<number>(0);
@@ -17,35 +20,52 @@ export const Places = () => {
   const [ hasMore, setHasMore ] = useState<boolean>(true);
   const [ initialLoadDone, setInitialLoadDone ] = useState(false);
   const [ isFetchingMore, setIsFetchingMore ] = useState<boolean>(false);
+  const isLoadingMoreRef = useRef(false);
 
-  const { places: queriedPlaces, loading, error, refetch, fetchMore } = usePlaces(
+  const { places: queriedPlaces, loading, error, refetch, fetchMore, networkStatus } = usePlaces(
     LIMIT,
     offset,
     search,
     selectedTags
   );
 
-  useEffect(() => {
-    if (!initialLoadDone && queriedPlaces.length) {
-      setPlaces(queriedPlaces);
-      setHasMore(queriedPlaces.length === LIMIT);
-      setInitialLoadDone(true);
-    }
-  }, [queriedPlaces, initialLoadDone]);
+  const isRefetching = networkStatus === NetworkStatus.refetch;
 
   useEffect(() => {
-    if (initialLoadDone) {
+    if (!initialLoadDone && !isLoadingMoreRef.current) {
+      setPlaces(queriedPlaces || []);
+      setHasMore((queriedPlaces?.length || 0) === LIMIT);
+      setInitialLoadDone(true);
+    }
+  }, [queriedPlaces, initialLoadDone, LIMIT]);
+
+  // Refetch when search or tags change
+  useEffect(() => {
+    if (!isLoadingMoreRef.current) {
       refetch({ limit: LIMIT, offset: 0, search, tags: selectedTags }).then(({ data }) => {
         setPlaces(data?.places || []);
         setOffset(0);
         setHasMore(data?.places?.length === LIMIT);
       });
     }
-  }, [search, selectedTags]);
+  }, [search, selectedTags, refetch]);
+
+  // Refetch when the component mounts or when the route changes to /places
+  useEffect(() => {
+    if (pathname === '/places' && !isLoadingMoreRef.current) {
+      refetch({ limit: LIMIT, offset: 0, search, tags: selectedTags }).then(({ data }) => {
+        setPlaces(data?.places || []);
+        setOffset(0);
+        setHasMore(data?.places?.length === LIMIT);
+      });
+    }
+  }, [pathname, refetch, search, selectedTags]);
 
   const loadMore = async () => {
+    isLoadingMoreRef.current = true;
     setIsFetchingMore(true);
     const newOffset = offset + LIMIT;
+    
     const { data: moreData } = await fetchMore({
       variables: {
         limit: LIMIT,
@@ -54,7 +74,7 @@ export const Places = () => {
         tags: selectedTags,
       },
     });
-
+    
     if (moreData?.places?.length) {
       setPlaces((prev) => [...prev, ...moreData.places]);
       setOffset(newOffset);
@@ -63,6 +83,7 @@ export const Places = () => {
       setHasMore(false);
     }
     setIsFetchingMore(false);
+    isLoadingMoreRef.current = false;
   };
 
   return (
@@ -118,8 +139,8 @@ export const Places = () => {
         ))}
       </div>
       )}
-      {(loading && places.length === 0) || isFetchingMore ? (
-        <p className={styles.loading}>Loading...</p>
+      {((loading && places.length === 0) || isFetchingMore || isRefetching) ? (
+        <p className={styles.loading}>{isRefetching ? 'Updating...' : 'Loading...'}</p>
       ) : (
         hasMore && (
           <button

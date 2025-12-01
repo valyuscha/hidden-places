@@ -65,12 +65,16 @@ export const PlaceForm = ({ initialValues }: PlaceFormProps) => {
       }
     }
     if (isEdit && initialValues!.id) {
-      const updated = await updatePlace(+initialValues!.id, {
-        title: payload.title,
-        description: payload.description,
-        imageUrl: payload.imageUrl,
-        tags: payload.tags,
-      });
+      const updated = await updatePlace(
+        +initialValues!.id,
+        {
+          title: payload.title,
+          description: payload.description,
+          imageUrl: payload.imageUrl,
+          tags: payload.tags,
+        },
+        payload.createdById,
+      );
       router.push(`/places/${updated.id}`);
     } else {
       const created = await createPlace(payload);

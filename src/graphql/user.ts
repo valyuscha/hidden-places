@@ -21,6 +21,7 @@ export const GET_USER_QUERY = gql`
         title
         description
         imageUrl
+        createdAt
       }
     }  
   }
